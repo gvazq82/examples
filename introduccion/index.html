@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>Introduccion a Backbone</title>
+<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="lib/underscore.js"></script>
+<script type="text/javascript" src="lib/backbone.js"></script>
+</head>
+<body>
+<script type="text/html" id="myTemplate">
+	<div>
+		<div>
+			<label>Name:</label>
+			<span><%=user.name%></span>
+		</div>
+		<div>
+			<label>Last Name:</label>
+			<span><%=user.lastName%></span>
+		</div>
+		<div>
+			<label>User Address:</label>
+			<span><%=user.address%></span>
+		</div>
+		
+	</div>
+</script>
+<script type="text/javascript">
+	var MyModel = Backbone.Model.extend({
+		defaults: {
+			name: null,
+			lastName: null,
+			isAdministrator: false
+		}
+		
+	});
+	
+	var MyCollection = Backbone.Collection.extend({
+		model: MyModel
+	});
+	var MyView = Backbone.View.extend({
+		template: '#myTemplate'
+	});
+</script>
+<script type="text/javascript">
+	
+	var administrator = new MyModel({
+		"name": "Admin",
+		"lastName" : "Admin",
+		"isAdministrator": true
+	});
+	//---Start
+	new MyView({
+		model: administrator,
+		template: _.template($('#myTemplate'))
+	}).render();
+</script>	
+</body>
+</html>
